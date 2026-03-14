@@ -1,12 +1,34 @@
 import subprocess
+import time
 
-print("\n--- Running data validation ---")
-subprocess.run(["python", "pipeline/validate_race_results.py"], check=True)
+def run_step(name, command):
 
-print("\n--- Building dimension tables ---")
-subprocess.run(["python", "pipeline/build_dimensions.py"], check=True)
+    print(f"\n--- Running step: {name} ---")
 
-print("\n--- Building analytics tables ---")
-subprocess.run(["python", "pipeline/build_analytics.py"], check=True)
+    start = time.time()
 
-print("\n--- Pipeline completed successfully ---")
+    subprocess.run(command, check=True)
+
+    duration = round(time.time() - start, 2)
+
+    print(f"Step completed: {name} ({duration} sec)")
+
+
+print("\n========== F1 DATA PIPELINE START ==========")
+
+run_step(
+    "Validate race results",
+    ["python", "pipeline/validate_race_results.py"]
+)
+
+run_step(
+    "Build dimension tables",
+    ["python", "pipeline/build_dimensions.py"]
+)
+
+run_step(
+    "Build analytics tables",
+    ["python", "pipeline/build_analytics.py"]
+)
+
+print("\n========== PIPELINE COMPLETED ==========")

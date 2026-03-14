@@ -1,4 +1,4 @@
-import fastf1
+import fastf1 # type: ignore
 import pandas as pd
 import os
 import time

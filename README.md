@@ -48,12 +48,11 @@ jupyter notebook notebooks/explore_race_results.ipynb
 ## Data Sources
 
 - **FastF1 API**: Race results, driver info, team data
-- **Years**: 2018-2024 (fetched incrementally due to rate limits)
+- **Years**: 2018-2024
 
 ## Current Status
 
-- ✅ Data fetched: 2018, 2019, 2020
-- 🔄 To fetch: 2021, 2022, 2023, 2024
+- ✅ Data fetched: 2018, 2019, 2020, 2021, 2022, 2023, 2024
 - 📊 Combined dataset available in `data/processed/`
 
 ## Next Steps

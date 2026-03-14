@@ -1,0 +1,18 @@
+# Ignore raw/processed data outputs
+/data/
+
+# Cache directory used by fastf1
+/f1_cache/
+
+# VS Code settings
+/.vscode/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/

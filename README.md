@@ -1,3 +1,7 @@
+![Pipeline](https://github.com/harshchandan/f1-analytics/actions/workflows/update_pipeline.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 # F1 Analytics Data Pipeline
 
 A modern **Formula 1 historical analytics pipeline** built using **Python, FastF1, DuckDB, and GitHub Actions**.

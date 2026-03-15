@@ -22,7 +22,8 @@ def export_tables():
         'race_winners',
         'driver_season_stats',
         'constructor_season_stats',
-        'driver_championship_scores'
+        'driver_championship_scores',
+        'race_results_with_circuits'
     ]
 
     for table in tables:

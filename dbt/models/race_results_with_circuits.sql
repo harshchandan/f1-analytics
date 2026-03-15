@@ -8,4 +8,4 @@ select
     c.first_race_year as circuit_first_race_year
 from {{ ref('stg_race_results') }} r
 left join {{ ref('circuits') }} c
-    on r."Circuit" = c.circuit_id
+    on r."RaceName" = c.race_name

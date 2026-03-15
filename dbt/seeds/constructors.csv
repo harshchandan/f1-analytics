@@ -1,12 +1,12 @@
 constructor_id,constructor_name,nationality,first_race_year,base_location
-alfa,Alfa Romeo Racing,Italian,2019,Hinwil, Switzerland
-alphatauri,Scuderia AlphaTauri,Italian,2020,Faenza, Italy
-alpine,BWT Alpine F1 Team,French,2021,Enstone, United Kingdom
-aston_martin,Aston Martin Aramco Cognizant F1 Team,British,2021,Silverstone, United Kingdom
-ferrari,Scuderia Ferrari,Italian,1950,Maranello, Italy
-haas,Haas F1 Team,American,2016,Kannapolis, United States
-mclaren,McLaren Racing,British,1966,Woking, United Kingdom
-mercedes,Mercedes-AMG Petronas F1 Team,German,2010,Brackley, United Kingdom
-red_bull,Oracle Red Bull Racing,Austrian,2005,Milton Keynes, United Kingdom
-sauber,Stake F1 Team Switzerland,Swiss,1993,Hinwil, Switzerland
-williams,Williams Racing,British,1977,Grove, United Kingdom
+alfa,Alfa Romeo Racing,Italian,2019,"Hinwil, Switzerland"
+alphatauri,Scuderia AlphaTauri,Italian,2020,"Faenza, Italy"
+alpine,BWT Alpine F1 Team,French,2021,"Enstone, United Kingdom"
+aston_martin,Aston Martin Aramco Cognizant F1 Team,British,2021,"Silverstone, United Kingdom"
+ferrari,Scuderia Ferrari,Italian,1950,"Maranello, Italy"
+haas,Haas F1 Team,American,2016,"Kannapolis, United States"
+mclaren,McLaren Racing,British,1966,"Woking, United Kingdom"
+mercedes,Mercedes-AMG Petronas F1 Team,German,2010,"Brackley, United Kingdom"
+red_bull,Oracle Red Bull Racing,Austrian,2005,"Milton Keynes, United Kingdom"
+sauber,Stake F1 Team Switzerland,Swiss,1993,"Hinwil, Switzerland"
+williams,Williams Racing,British,1977,"Grove, United Kingdom"

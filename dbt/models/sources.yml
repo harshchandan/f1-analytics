@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw F1 race results data
+    loader: duckdb
+    freshness: null
+    
+    tables:
+      - name: race_results_combined
+        description: Combined race results from all years
+        external:
+          location: '../data/processed/race_results_combined.parquet'
+          using: parquet

@@ -1,134 +1,148 @@
 # F1 Analytics Data Pipeline
 
-A modern Formula 1 historical analytics pipeline built using Python, FastF1, DuckDB, and GitHub Actions.
+A modern **Formula 1 historical analytics pipeline** built using **Python, FastF1, DuckDB, and GitHub Actions**.
 
-This project ingests race results from the FastF1 API, processes them into structured datasets, and produces analytics-ready tables that can be queried using SQL. The pipeline automatically updates the dataset weekly using GitHub Actions.
-
----
-
-## Project Goals
-
-The purpose of this project is to demonstrate how to build a modern data engineering pipeline around real-world sports data.
-
-Key goals include:
-
-* Building a structured data pipeline
-* Creating a historical Formula 1 analytics dataset
-* Demonstrating layered data lake architecture
-* Enabling fast SQL analytics using DuckDB
-* Automating dataset updates using GitHub Actions
+This project ingests race results from the FastF1 API, processes them into structured datasets, and produces analytics-ready tables that can be queried using SQL. The pipeline is designed to automatically update the dataset using GitHub Actions.
 
 ---
 
-## Data Source
+# Project Goals
 
-The project uses the FastF1 API to extract race session data from modern Formula 1 seasons.
+This repository demonstrates how to build a **modern data engineering pipeline** using real-world sports data.
 
-FastF1 provides access to:
+Key objectives:
+
+* Build a reproducible **data pipeline**
+* Create a structured **Formula 1 analytics dataset**
+* Demonstrate **layered data architecture**
+* Enable fast analytics using **DuckDB**
+* Automate data updates using **GitHub Actions**
+
+---
+
+# Data Source
+
+The pipeline uses the **FastF1 API** to extract race session data from modern Formula 1 seasons.
+
+The dataset includes information such as:
 
 * Race results
-* Driver information
-* Team information
-* Session metadata
+* Driver details
+* Constructor information
+* Grid positions
+* Points scored
+* Race metadata
 
-The dataset currently focuses on modern Formula 1 seasons (2018 onward) where telemetry and timing data are reliable.
+The project currently focuses on **modern F1 seasons (2018 onward)** where timing data is reliable.
 
 ---
 
-## Architecture
+# Data Architecture
 
-The project follows a layered data engineering architecture commonly used in modern data platforms.
+The pipeline follows a layered data engineering architecture commonly used in modern analytics platforms.
 
+```text
 FastF1 API
-↓
+    │
+    ▼
 Ingestion Scripts
-↓
+    │
+    ▼
 Raw Data Layer
-↓
+    │
+    ▼
 Processed Data Layer
-↓
+    │
+    ▼
 Analytics Layer
-↓
+    │
+    ▼
 DuckDB Query Engine
+```
 
-The pipeline extracts data, transforms it into structured datasets, and generates analytics tables used for analysis.
+Each stage progressively transforms the data into more structured and analytics-ready datasets.
 
 ---
 
-## Repository Structure
+# Repository Structure
 
+```text
 f1-analytics/
 
-data/
- raw/       # yearly race results extracted from FastF1
- processed/   # combined cleaned dataset
- analytics/   # aggregated analytics datasets
+├── data/
+│   ├── raw/                # Yearly race results extracted from FastF1
+│   ├── processed/          # Combined cleaned dataset
+│   └── analytics/          # Aggregated analytics datasets
 
-ingestion/
- fetch_race_results_*.py
- combine_race_results.py
+├── ingestion/
+│   ├── fetch_race_results_*.py
+│   └── combine_race_results.py
 
-pipeline/
- validate_race_results.py
- build_dimensions.py
- build_analytics.py
- build_driver_career_stats.py
- build_driver_streaks.py
+├── pipeline/
+│   ├── validate_race_results.py
+│   ├── build_dimensions.py
+│   ├── build_analytics.py
+│   ├── build_driver_career_stats.py
+│   └── build_driver_streaks.py
 
-queries/
- example SQL queries for DuckDB
+├── queries/
+│   └── example SQL queries for DuckDB
 
-notebooks/
- exploratory analysis notebooks
+├── notebooks/
+│   └── exploratory analysis
 
-docs/
- architecture documentation
+├── docs/
+│   └── architecture documentation
 
-run_pipeline.py
-
-requirements.txt
-
-README.md
+├── run_pipeline.py
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## Data Layers
+# Data Layers
 
-### Raw Layer
+## Raw Layer
 
-The raw layer stores race results extracted from the FastF1 API for each season.
+The raw layer stores race results extracted directly from the FastF1 API.
 
 Example files:
 
+```text
 data/raw/race_results_2018.parquet
 data/raw/race_results_2019.parquet
 data/raw/race_results_2020.parquet
+```
 
-These datasets contain driver-level race results for each event.
+Each dataset contains driver-level race results for each event.
 
 ---
 
-### Processed Layer
+## Processed Layer
 
-Raw datasets are combined into a unified dataset.
+Raw datasets are combined and cleaned into a unified dataset.
 
+```text
 data/processed/race_results_combined.parquet
+```
 
-This dataset includes columns such as:
+This dataset contains:
 
 * Driver information
 * Team information
 * Grid position
-* Race finishing position
+* Finishing position
 * Points scored
 * Race metadata
 
 ---
 
-### Analytics Layer
+## Analytics Layer
 
 The analytics layer contains aggregated tables used for analysis and dashboards.
 
+```text
 data/analytics/
 
 race_winners.parquet
@@ -136,68 +150,74 @@ driver_season_stats.parquet
 constructor_season_stats.parquet
 driver_career_stats.parquet
 driver_streaks.parquet
+```
 
-These tables enable advanced analysis such as:
+These datasets enable deeper insights such as:
 
 * Race winners by season
 * Driver career statistics
 * Constructor dominance
-* Podium and win streaks
+* Podium streaks
+* Win streaks
 
 ---
 
-## Example Analytics
+# Example Analytics
 
-The dataset allows analysis such as:
+This dataset enables analysis such as:
 
 * Which driver has the most wins
-* Season-level driver performance
+* Driver performance across seasons
 * Constructor dominance patterns
 * Longest winning streaks
 * Podium consistency
 
-Modern seasons show strong dominance periods from drivers like Max Verstappen and Lewis Hamilton.
-
 ---
 
-## Running the Pipeline
+# Running the Pipeline
 
-Install dependencies:
+## Install dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
-Run the pipeline:
+## Run the pipeline
 
+```bash
 python run_pipeline.py
+```
 
-This will:
+The pipeline performs the following steps:
 
-1. Validate the processed dataset
+1. Validate processed datasets
 2. Build dimension tables
 3. Generate analytics datasets
 
 ---
 
-## Querying the Data
+# Querying the Data
 
 DuckDB is used to query parquet datasets directly.
 
 Example query:
 
+```sql
 SELECT FullName, wins
 FROM read_parquet('data/analytics/driver_career_stats.parquet')
 ORDER BY wins DESC
 LIMIT 10;
+```
 
 DuckDB allows SQL queries on parquet files without requiring a traditional database.
 
 ---
 
-## Automation
+# Automation
 
-The pipeline is automated using GitHub Actions.
+The pipeline is automated using **GitHub Actions**.
 
-The workflow runs weekly and performs the following steps:
+The workflow performs the following tasks:
 
 1. Fetch race results from FastF1
 2. Update raw datasets
@@ -205,21 +225,23 @@ The workflow runs weekly and performs the following steps:
 4. Recompute analytics tables
 5. Commit updated data to the repository
 
+This ensures the dataset stays up to date throughout the Formula 1 season.
+
 ---
 
-## Future Improvements
+# Future Improvements
 
-Planned improvements include:
+Planned enhancements include:
 
-* Introducing dbt for transformation management
-* Adding additional analytics datasets
-* Incorporating qualifying and lap data
-* Building a FastAPI analytics API
-* Creating interactive dashboards
+* Introducing **dbt** for transformation management
+* Adding qualifying and lap-level analytics
+* Creating additional advanced analytics datasets
+* Building a **FastAPI analytics API**
+* Developing interactive dashboards
 * Extending the dataset to additional seasons
 
 ---
 
-## License
+# License
 
 MIT License

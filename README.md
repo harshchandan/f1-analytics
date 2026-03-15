@@ -68,6 +68,28 @@ Each stage progressively transforms the data into more structured and analytics-
 
 ---
 
+# Data Transformation (dbt)
+
+The project uses **dbt (Data Build Tool)** for SQL-based data transformations. dbt models transform the raw combined data into analytics-ready tables.
+
+### dbt Models
+
+- `stg_race_results`: Staging table with core race data
+- `race_winners`: Race winners with details
+- `driver_season_stats`: Driver performance by season
+- `constructor_season_stats`: Constructor performance by season
+
+### Running dbt
+
+```bash
+cd dbt
+dbt build
+```
+
+This creates tables in DuckDB and exports them to `data/analytics/` as parquet files.
+
+---
+
 # Repository Structure
 
 ```text
@@ -77,6 +99,11 @@ f1-analytics/
 │   ├── raw/                # Yearly race results extracted from FastF1
 │   ├── processed/          # Combined cleaned dataset
 │   └── analytics/          # Aggregated analytics datasets
+
+├── dbt/
+│   ├── models/             # dbt SQL models
+│   ├── export_tables.py    # Export script
+│   └── dbt_project.yml
 
 ├── ingestion/
 │   ├── fetch_race_results_*.py

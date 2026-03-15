@@ -1,71 +1,47 @@
-import pandas as pd
+#!/usr/bin/env python3
+"""
+Build analytics tables using dbt.
+
+This script runs the dbt models to transform raw data into analytics tables.
+"""
+
+import subprocess
+import sys
 import os
 
-df = pd.read_parquet("data/processed/race_results_combined.parquet")
+def run_dbt():
+    """Run dbt build command."""
+    try:
+        # Change to dbt directory
+        os.chdir('dbt')
 
-os.makedirs("data/analytics", exist_ok=True)
+        # Run dbt build
+        result = subprocess.run(['dbt', 'build'], capture_output=True, text=True)
 
-# -------------------------
-# Race winners table
-# -------------------------
+        if result.returncode == 0:
+            print("✅ dbt build completed successfully!")
+            print(result.stdout)
+        else:
+            print("❌ dbt build failed!")
+            print("STDOUT:", result.stdout)
+            print("STDERR:", result.stderr)
+            sys.exit(1)
 
-race_winners = df[df["Position"] == 1][
-    ["Season", "Round", "RaceName", "DriverId", "FullName", "TeamName", "Points"]
-]
+        # Export tables to parquet
+        result2 = subprocess.run(['python', 'export_tables.py'], capture_output=True, text=True)
 
-race_winners.to_parquet(
-    "data/analytics/race_winners.parquet",
-    index=False
-)
+        if result2.returncode == 0:
+            print("✅ Table export completed successfully!")
+            print(result2.stdout)
+        else:
+            print("❌ Table export failed!")
+            print("STDOUT:", result2.stdout)
+            print("STDERR:", result2.stderr)
+            sys.exit(1)
 
-print("Race winners table created:", len(race_winners))
+    except Exception as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
-
-# -------------------------
-# Driver season statistics
-# -------------------------
-
-driver_season_stats = (
-    df.groupby(["Season", "DriverId", "FullName"])
-    .agg(
-        races=("Position", "count"),
-        wins=("Position", lambda x: (x == 1).sum()),
-        podiums=("Position", lambda x: (x <= 3).sum()),
-        points=("Points", "sum"),
-        avg_finish=("Position", "mean")
-    )
-    .reset_index()
-)
-
-driver_season_stats.to_parquet(
-    "data/analytics/driver_season_stats.parquet",
-    index=False
-)
-
-print("Driver season stats created:", len(driver_season_stats))
-
-
-# -------------------------
-# Constructor season stats
-# -------------------------
-
-constructor_season_stats = (
-    df.groupby(["Season", "TeamId", "TeamName"])
-    .agg(
-        races=("Position", "count"),
-        wins=("Position", lambda x: (x == 1).sum()),
-        podiums=("Position", lambda x: (x <= 3).sum()),
-        points=("Points", "sum")
-    )
-    .reset_index()
-)
-
-constructor_season_stats.to_parquet(
-    "data/analytics/constructor_season_stats.parquet",
-    index=False
-)
-
-print("Constructor season stats created:", len(constructor_season_stats))
-
-
-print("Analytics tables built successfully")
+if __name__ == "__main__":
+    run_dbt()

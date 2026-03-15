@@ -21,7 +21,8 @@ def export_tables():
     tables = [
         'race_winners',
         'driver_season_stats',
-        'constructor_season_stats'
+        'constructor_season_stats',
+        'driver_championship_scores'
     ]
 
     for table in tables:

@@ -10,3 +10,4 @@ select
     "Position",
     "Points"
 from read_parquet('../data/processed/race_results_combined.parquet')
+where "Position" is not null

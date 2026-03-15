@@ -1,6 +1,3 @@
-# Ignore raw/processed data outputs
-/data/
-
 # Cache directory used by fastf1
 /f1_cache/
 

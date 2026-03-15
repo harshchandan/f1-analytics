@@ -1,4 +1,4 @@
-import duckdb
+import duckdb # type: ignore
 
 # Connect to DuckDB (creates DB file if not present)
 con = duckdb.connect("f1_analytics.duckdb")

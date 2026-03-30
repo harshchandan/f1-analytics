@@ -262,9 +262,9 @@ This ensures the dataset stays up to date throughout the Formula 1 season.
 
 # Future Improvements
 
+
 Planned enhancements include:
 
-* Introducing **dbt** for transformation management
 * Adding qualifying and lap-level analytics
 * Creating additional advanced analytics datasets
 * Building a **FastAPI analytics API**
